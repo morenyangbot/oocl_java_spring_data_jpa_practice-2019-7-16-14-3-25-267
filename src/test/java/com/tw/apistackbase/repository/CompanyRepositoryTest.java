@@ -1,6 +1,7 @@
 package com.tw.apistackbase.repository;
 
 import com.tw.apistackbase.core.Company;
+import com.tw.apistackbase.core.CompanyProfile;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,28 +18,48 @@ public class CompanyRepositoryTest {
     @Autowired
     private CompanyRepository companyRepository;
 
+    @Autowired
+    private CompanyProfileRepository companyProfileRepository;
+
     @Test
-    public void should_save_and_fetch_company_entity() {
-        Company company = new Company();
-        company.setName("Company");
+    public void should_save_and_fetch_companyProfile_entity() {
+        CompanyProfile companyProfile = new CompanyProfile();
+        companyProfile.setCertId("CompanyProfile");
 
-        Company companyInDb = companyRepository.save(company);
-        Company companyFetched = companyRepository.findById(companyInDb.getId()).orElse(null);
+        CompanyProfile companyProfileInDb = companyProfileRepository.save(companyProfile);
+        CompanyProfile companyProfileFetched = companyProfileRepository.findById(companyProfileInDb.getId()).orElse(null);
 
-        assertNotNull(companyFetched);
-        assertEquals(company.getName(), companyFetched.getName());
+        assertNotNull(companyProfileFetched);
+        assertEquals(companyProfile.getCertId(), companyProfileFetched.getCertId());
     }
 
     @Test
-    public void should_not_save_company_when_name_is_null() {
-        Company company = new Company();
-        assertThrows(Exception.class, () -> companyRepository.saveAndFlush(company));
+    public void should_not_save_companyProfile_when_length_of_name_more_than_64() {
+        CompanyProfile companyProfile = new CompanyProfile();
+        companyProfile.setCertId("This is a fucking loooooooooooooooooooooooooooooooooooong name test for companyProfile.");
+
+        assertThrows(Exception.class, () -> companyProfileRepository.saveAndFlush(companyProfile));
     }
 
     @Test
-    public void should_not_save_company_when_length_of_name_more_than_64() {
+    public void should_find_company_profile_when_save_company() {
+        CompanyProfile companyProfile = new CompanyProfile();
+        companyProfile.setCertId("CRET1234");
         Company company = new Company();
-        company.setName("This is a fucking loooooooooooooooooooooooooooooooooooong name test for company.");
+        company.setName("Name");
+        company.setProfile(companyProfile);
+
+        CompanyProfile companyProfileInDb = companyRepository.saveAndFlush(company).getProfile();
+        CompanyProfile fetchedCompanyProfile = companyProfileRepository.findById(companyProfileInDb.getId()).orElse(null);
+
+        assertNotNull(fetchedCompanyProfile);
+        assertEquals(companyProfile.getCertId(), fetchedCompanyProfile.getCertId());
+    }
+
+    @Test
+    public void should_not_save_company_without_companyProfile() {
+        Company company = new Company();
+        company.setName("Name");
 
         assertThrows(Exception.class, () -> companyRepository.saveAndFlush(company));
     }

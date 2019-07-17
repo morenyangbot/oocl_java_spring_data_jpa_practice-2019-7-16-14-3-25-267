@@ -17,6 +17,7 @@ public class Company {
     @Column(length = 64)
     private String name;
 
+    @NotNull
     @OneToOne(cascade = CascadeType.ALL)
     private CompanyProfile profile;
 
