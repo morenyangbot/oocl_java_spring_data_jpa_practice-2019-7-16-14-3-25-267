@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/companies")
 public class CompanyResource {
@@ -31,5 +33,10 @@ public class CompanyResource {
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Long id) {
         companyRepository.deleteById(id);
+    }
+
+    @DeleteMapping
+    public void multipleDelete(@RequestBody List<Company> companies) {
+        companyRepository.deleteAll(companies);
     }
 }
