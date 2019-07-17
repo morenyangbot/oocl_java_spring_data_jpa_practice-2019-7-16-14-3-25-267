@@ -16,6 +16,7 @@ public class Company {
     private CompanyProfile profile;
 
     @OneToMany(cascade = CascadeType.ALL)
+    @OrderBy("age DESC")
     private Set<Employee> employees;
 
     public Long getId() {

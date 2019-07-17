@@ -39,4 +39,11 @@ public class CompanyResource {
     public void multipleDelete(@RequestBody List<Company> companies) {
         companyRepository.deleteAll(companies);
     }
+
+
+    @GetMapping(value = "", params = {"companyName"})
+    public List<Company> findCompanyByCompanyName(@RequestParam String companyName) {
+        return companyRepository.findByName(companyName);
+    }
+
 }
