@@ -1,6 +1,9 @@
 package com.tw.apistackbase.core;
 
+import org.hibernate.validator.constraints.Length;
+
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.Set;
 
 @Entity
@@ -10,6 +13,8 @@ public class Company {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @NotNull
+    @Column(length = 64)
     private String name;
 
     @OneToOne(cascade = CascadeType.ALL)
