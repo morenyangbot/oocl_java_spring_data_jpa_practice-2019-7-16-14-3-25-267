@@ -21,7 +21,7 @@ public class Company {
     @OneToOne(cascade = CascadeType.ALL)
     private CompanyProfile profile;
 
-    @OneToMany(fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @OrderBy("age DESC")
     @JoinColumn(name = "COMPANY_ID")
     private Set<Employee> employees;

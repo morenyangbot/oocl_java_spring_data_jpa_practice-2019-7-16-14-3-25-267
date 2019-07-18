@@ -12,7 +12,7 @@ public class Employee {
     private String name;
     private Integer age;
 
-    @ManyToOne(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "COMPANY_ID")
     private Company company;
 
