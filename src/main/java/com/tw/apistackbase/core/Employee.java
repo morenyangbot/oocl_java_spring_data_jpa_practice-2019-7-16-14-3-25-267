@@ -1,5 +1,7 @@
 package com.tw.apistackbase.core;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 @Entity
@@ -12,8 +14,9 @@ public class Employee {
     private String name;
     private Integer age;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "COMPANY_ID")
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY)
     private Company company;
 
     public Company getCompany() {

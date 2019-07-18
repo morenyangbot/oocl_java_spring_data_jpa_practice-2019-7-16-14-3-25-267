@@ -4,6 +4,7 @@ import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -21,10 +22,10 @@ public class Company {
     @OneToOne(cascade = CascadeType.ALL)
     private CompanyProfile profile;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL)
     @OrderBy("age DESC")
     @JoinColumn(name = "COMPANY_ID")
-    private Set<Employee> employees;
+    private List<Employee> employees;
 
     public Long getId() {
         return id;
@@ -46,11 +47,11 @@ public class Company {
         this.profile = profile;
     }
 
-    public Set<Employee> getEmployees() {
+    public List<Employee> getEmployees() {
         return employees;
     }
 
-    public void setEmployees(Set<Employee> employees) {
+    public void setEmployees(List<Employee> employees) {
         this.employees = employees;
     }
 
