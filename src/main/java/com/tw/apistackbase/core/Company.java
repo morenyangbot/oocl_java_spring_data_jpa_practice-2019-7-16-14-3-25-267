@@ -21,8 +21,9 @@ public class Company {
     @OneToOne(cascade = CascadeType.ALL)
     private CompanyProfile profile;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER)
     @OrderBy("age DESC")
+    @JoinColumn(name = "COMPANY_ID")
     private Set<Employee> employees;
 
     public Long getId() {

@@ -40,7 +40,6 @@ public class CompanyResource {
         companyRepository.deleteAll(companies);
     }
 
-
     @GetMapping(value = "", params = {"companyName"})
     public List<Company> findCompanyByCompanyName(@RequestParam String companyName) {
         return companyRepository.findByName(companyName);
